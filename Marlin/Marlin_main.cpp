@@ -1681,8 +1681,8 @@ void process_commands()
 #ifdef AUTO_BED_LEVELING_GRID
             // probe at the points of a lattice grid
 
-            int xGridSpacing = (RIGHT_PROBE_BED_POSITION - LEFT_PROBE_BED_POSITION) / (AUTO_BED_LEVELING_GRID_POINTS-1);
-            int yGridSpacing = (BACK_PROBE_BED_POSITION - FRONT_PROBE_BED_POSITION) / (AUTO_BED_LEVELING_GRID_POINTS-1);
+            int xGridSpacing = (right_probe_bed_position - left_probe_bed_position) / (AUTO_BED_LEVELING_GRID_POINTS-1);
+            int yGridSpacing = (back_probe_bed_position - front_probe_bed_position) / (AUTO_BED_LEVELING_GRID_POINTS-1);
 
 
             // solve the plane equation ax + by + d = z
@@ -1700,19 +1700,17 @@ void process_commands()
             int probePointCounter = 0;
             bool zig = true;
 
-            for (int yProbe=FRONT_PROBE_BED_POSITION; yProbe <= BACK_PROBE_BED_POSITION; yProbe += yGridSpacing)
+            for (int yProbe=front_probe_bed_position; yProbe <= back_probe_bed_position; yProbe += yGridSpacing)
             {
               int xProbe, xInc;
               if (zig)
               {
-                xProbe = LEFT_PROBE_BED_POSITION;
-                //xEnd = RIGHT_PROBE_BED_POSITION;
+                xProbe = left_probe_bed_position;
                 xInc = xGridSpacing;
                 zig = false;
               } else // zag
               {
-                xProbe = RIGHT_PROBE_BED_POSITION;
-                //xEnd = LEFT_PROBE_BED_POSITION;
+                xProbe = right_probe_bed_position;
                 xInc = -xGridSpacing;
                 zig = true;
               }
