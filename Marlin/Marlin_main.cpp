@@ -1568,7 +1568,7 @@ void process_commands()
               plan_buffer_line(destination[X_AXIS], destination[Y_AXIS], destination[Z_AXIS], destination[E_AXIS], feedrate, active_extruder);
               st_synchronize();
             #endif
-            HOMEAXIS(Z);
+            //HOMEAXIS(Z);
           }
         #else                      // Z Safe mode activated.
           if(home_all_axis) {
@@ -1584,7 +1584,7 @@ void process_commands()
             current_position[X_AXIS] = destination[X_AXIS];
             current_position[Y_AXIS] = destination[Y_AXIS];
 
-            HOMEAXIS(Z);
+            //HOMEAXIS(Z);
           }
                                                 // Let's see if X and Y are homed and probe is inside bed area.
           if(code_seen(axis_codes[Z_AXIS])) {
@@ -1601,7 +1601,7 @@ void process_commands()
               plan_buffer_line(destination[X_AXIS], destination[Y_AXIS], destination[Z_AXIS], destination[E_AXIS], feedrate, active_extruder);
               st_synchronize();
 
-              HOMEAXIS(Z);
+              //HOMEAXIS(Z);
             } else if (!((axis_known_position[X_AXIS]) && (axis_known_position[Y_AXIS]))) {
                 LCD_MESSAGEPGM(MSG_POSITION_UNKNOWN);
                 SERIAL_ECHO_START;
