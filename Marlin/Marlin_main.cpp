@@ -229,6 +229,12 @@ float add_homing[3]={0,0,0};
 float endstop_adj[3]={0,0,0};
 #endif
 
+// Variables for custom Z probe
+float left_probe_bed_position = NULL;
+float right_probe_bed_position = NULL;
+float back_probe_bed_position = NULL;
+float front_probe_bed_position = NULL;
+
 float min_pos[3] = { X_MIN_POS, Y_MIN_POS, Z_MIN_POS };
 float max_pos[3] = { X_MAX_POS, Y_MAX_POS, Z_MAX_POS };
 bool axis_known_position[3] = {false, false, false};
@@ -1852,6 +1858,64 @@ void process_commands()
         }
       }
       break;
+
+    case 93: // G93
+      left_probe_bed_position = current_position[X_AXIS];
+      front_probe_bed_position = current_position[Y_AXIS];
+      SERIAL_PROTOCOLPGM("Lower bounds for Z probe :\n");
+      SERIAL_PROTOCOLPGM("X:");
+      SERIAL_PROTOCOL(left_probe_bed_position);
+      SERIAL_PROTOCOLPGM(" Y:");
+      SERIAL_PROTOCOL(front_probe_bed_position);
+      SERIAL_PROTOCOLPGM("\n");
+      break;
+
+    case 94: // G94
+      right_probe_bed_position = current_position[X_AXIS];
+      back_probe_bed_position = current_position[Y_AXIS];
+      SERIAL_PROTOCOLPGM("Upper bounds for Z probe :\n");
+      SERIAL_PROTOCOLPGM("X:");
+      SERIAL_PROTOCOL(right_probe_bed_position);
+      SERIAL_PROTOCOLPGM(" Y:");
+      SERIAL_PROTOCOL(back_probe_bed_position);
+      SERIAL_PROTOCOLPGM("\n");
+      break;
+
+    case 95: // G95
+      SERIAL_PROTOCOLPGM("Lower bounds for Z probe :\n");
+      SERIAL_PROTOCOLPGM("X:");
+      if (left_probe_bed_position == NULL) {
+        SERIAL_PROTOCOLPGM(" Not set");
+      }
+      else {
+        SERIAL_PROTOCOL(left_probe_bed_position);
+      }
+      SERIAL_PROTOCOLPGM(" Y:");
+      if (front_probe_bed_position == NULL) {
+        SERIAL_PROTOCOLPGM(" Not set");
+      }
+      else {
+        SERIAL_PROTOCOL(front_probe_bed_position);
+      }
+      SERIAL_PROTOCOLPGM("\n");
+      SERIAL_PROTOCOLPGM("Upper bounds for Z probe :\n");
+      SERIAL_PROTOCOLPGM("X:");
+      if (right_probe_bed_position == NULL) {
+        SERIAL_PROTOCOLPGM(" Not set");
+      }
+      else {
+        SERIAL_PROTOCOL(right_probe_bed_position);
+      }
+      SERIAL_PROTOCOLPGM(" Y:");
+      if (back_probe_bed_position == NULL) {
+        SERIAL_PROTOCOLPGM(" Not set");
+      }
+      else {
+        SERIAL_PROTOCOL(back_probe_bed_position);
+      }
+      SERIAL_PROTOCOLPGM("\n");
+      break;
+      
     }
   }
 

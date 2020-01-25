@@ -211,6 +211,13 @@ extern int extrudemultiply; // Sets extrude multiply factor (in percent) for all
 extern int extruder_multiply[EXTRUDERS]; // sets extrude multiply factor (in percent) for each extruder individually
 extern float volumetric_multiplier[EXTRUDERS]; // reciprocal of cross-sectional area of filament (in square millimeters), stored this way to reduce computational burden in planner
 extern float current_position[NUM_AXIS] ;
+
+// Variables for cnc
+extern float cust_left_probe_bed_position;
+extern float cust_right_probe_bed_position;
+extern float cust_back_probe_bed_position;
+extern float cust_front_probe_bed_position;
+
 extern float add_homing[3];
 #ifdef DELTA
 extern float endstop_adj[3];
@@ -263,5 +270,7 @@ extern uint8_t active_extruder;
 extern void digipot_i2c_set_current( int channel, float current );
 extern void digipot_i2c_init();
 #endif
+
+
 
 #endif
