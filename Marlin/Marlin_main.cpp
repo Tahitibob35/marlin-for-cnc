@@ -1033,7 +1033,7 @@ static void set_bed_level_equation_3pts(float z_at_pt_1, float z_at_pt_2, float 
 
 static void run_z_probe() {
     plan_bed_level_matrix.set_to_identity();
-    feedrate = homing_feedrate[Z_AXIS];
+    feedrate = homing_feedrate[Z_AXIS]/4;
 
     // move down until you find the bed
     float zPosition = -10;
